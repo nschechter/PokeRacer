@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  password_digest: MyString
+  pokemon: one
+
+two:
+  username: MyString
+  password_digest: MyString
+  pokemon: two
