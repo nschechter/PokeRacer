@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Websocket from 'react-websocket';
+import { NavLink } from 'react-router-dom'
 
 class App extends Component {
   constructor(props) {
@@ -26,9 +27,8 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Welcome to React</h2>
+      
         </div>
-          {this.state.message}
         <Websocket url='ws://localhost:3001/cable'
         onMessage={this.handleData.bind(this)}/>
       </div>

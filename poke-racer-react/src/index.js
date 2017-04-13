@@ -6,14 +6,16 @@ import { Provider } from 'react-redux'
 import { store } from './store.js'
 import { BrowserRouter as Router, Route, browserHistory, Switch } from 'react-router-dom'
 import Races from './components/Races'
+import Navbar from './components/Navbar'
 require('./sockets/sockets.js')
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <div>
-      <Route path="/" component={App}/>
+      <Route path="/" component={Navbar}/>
         <Switch>
+          <Route exact path="/" component={App}/>
           <Route path="/races" component={Races}/>
           <Route component={NotFound} />
         </Switch>
