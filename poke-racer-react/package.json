@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "actioncable": "^5.0.2",
+    "actioncable-js": "^5.0.0-rc2",
+    "es6-actioncable": "^0.5.4",
+    "i": "^0.3.5",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
