@@ -1,7 +1,12 @@
-import React from 'react'
+import React, {Component} from 'react'
+import Button from 'react-bootstrap/lib/Button'
 
-const PokemonButton = (props) => (
-  <button id={props.pokemon.id} onClick={props.handleClick}>{props.pokemon.name}</button>
+ const PokemonButton = (props) => (
+
+  <button id={props.pokemon.id} onClick={props.handleClick} type="button" className={props.className} data-toggle="button" aria-pressed="false" autoComplete="off">
+  <img src={props.pokemon.img_url}/>{props.pokemon.name}
+  </button>
+
 )
 
 export default PokemonButton
