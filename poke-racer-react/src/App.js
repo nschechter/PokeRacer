@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom'
 import Login from './components/Login'
 import WebsocketListener from './components/sockets/WebsocketListener'
-import PokemonPicker from './PokemonPicker'
+import ConnectedPokemonPicker from './components/PokemonPicker'
 
 class App extends Component {
   constructor(props) {
@@ -12,7 +11,6 @@ class App extends Component {
     };
     this.handleNewParticipant = this.handleNewParticipant.bind(this)
   }
-
 
   handleNewParticipant(participant) {
     this.setState({
@@ -29,12 +27,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-        </div>
-          <h2>Welcome to PokéRaces</h2>
+        <h2>Welcome to PokéRaces</h2>
         <Login />
-        <PokemonPicker />
         {this.displayPokemon()}
+        <ConnectedPokemonPicker />
         <WebsocketListener
           debug
           handleReceived={this.handleNewParticipant}

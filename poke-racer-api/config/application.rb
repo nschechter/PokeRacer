@@ -34,9 +34,6 @@ module PokeRacerApi
           end
         end
 
-      end
-    end
     config.autoload_paths << Rails.root.join('lib')
   end
 end
-
