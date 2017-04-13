@@ -18,9 +18,6 @@ class App extends Component {
     }
   }
 
-  componentWillMount() {
-  }
-
   componentDidMount() {
     fetch('http://localhost:3001/v1/pokemon').then((resp) => resp )
   }
@@ -31,7 +28,7 @@ class App extends Component {
         <div className="App-header">
           <h2>Welcome to React</h2>
         </div>
-        {this.state.message}
+          {this.state.message}
         <Websocket url='ws://localhost:3001/cable'
         onMessage={this.handleData.bind(this)}/>
       </div>
