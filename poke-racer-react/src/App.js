@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
 import Login from './components/Login'
 import WebsocketListener from './components/sockets/WebsocketListener'
+import PokemonPicker from './PokemonPicker'
 
 class App extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class App extends Component {
         </div>
           <h2>Welcome to PokéRaces</h2>
         <Login />
+        <PokemonPicker />
         {this.displayPokemon()}
         <WebsocketListener
           debug
