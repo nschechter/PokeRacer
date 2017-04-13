@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import ConnectedApp from './App';
 import NotFound from './components/NotFound'
 import { Provider } from 'react-redux'
 import { store } from './store.js'
@@ -11,16 +11,17 @@ import Navbar from './components/Navbar'
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <div>
-      <Route path="/" component={Navbar}/>
-        <Switch>
-          <Route exact path="/" component={App}/>
-          <Route path="/races" component={Races}/>
-          <Route component={NotFound} />
-        </Switch>
-      </div>
-    </Router>
+    <ConnectedApp />    
   </Provider>,
   document.getElementById('root')
 );
+//   <Router history={browserHistory}>
+//     <div>
+//     <Route path="/" component={Navbar}/>
+//       <Switch>
+// <Route exact path="/" component={ConnectedApp}/>
+// <Route path="/races" component={Races}/>
+// <Route component={NotFound} />
+//       </Switch>
+//     </div>
+//   </Router>
