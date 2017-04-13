@@ -7,7 +7,7 @@ import { store } from './store.js'
 import { BrowserRouter as Router, Route, browserHistory, Switch } from 'react-router-dom'
 import Races from './components/Races'
 import Navbar from './components/Navbar'
-require('./sockets/sockets.js')
+
 
 ReactDOM.render(
   <Provider store={store}>
