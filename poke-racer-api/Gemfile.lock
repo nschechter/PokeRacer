@@ -54,6 +54,8 @@ GEM
     ffi (1.9.18)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.8.1)
     jsonapi-renderer (0.1.2)
     jwt (1.5.6)
@@ -70,6 +72,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
+    multi_xml (0.6.0)
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
@@ -134,6 +137,7 @@ DEPENDENCIES
   active_model_serializers
   bcrypt
   byebug
+  httparty
   jwt
   listen (~> 3.0.5)
   pg (~> 0.18)
