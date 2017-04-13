@@ -1,6 +1,6 @@
-class PokemonChannel < ApplicationCable::Channel
+class AddNewParticipantChannel < ApplicationCable::Channel
   def subscribed
-    stream_from 'pokemon'
+    stream_from 'newparticipant'
   end
 
   def unsubscribed
