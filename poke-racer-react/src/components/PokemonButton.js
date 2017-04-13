@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Button from 'react-bootstrap/lib/Button'
+import '../index.css'
 
  const PokemonButton = (props) => (
 

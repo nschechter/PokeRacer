@@ -4,6 +4,8 @@ import { setPokemon } from '../actions/Account'
 import { connect } from 'react-redux'
 import PokemonButton from './PokemonButton'
 import InfiniteScroll from 'react-component-infinite-scroll';
+import { Redirect } from 'react-router-dom'
+import '../index.css'
 
 export default class PokemonPicker extends Component {
     constructor() {
@@ -11,18 +13,27 @@ export default class PokemonPicker extends Component {
       this.state = {
         pokeList: [],
         pokeId: null,
-        current: 0
+        currentIndex: 0,
+        currentFilter: ''
+
     }
     this.nextPage = this.nextPage.bind(this)
     this.listPokemon = this.listPokemon.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.getPokemon = this.getPokemon.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleFilterChange = this.handleFilterChange.bind(this)
   }
 
     handleClick(e){
       this.setState({
         pokeId: e.target.id
+      })
+    }
+
+    handleFilterChange(e) {
+      this.setState({
+        currentFilter: e.target.value
       })
     }
 
@@ -42,17 +53,24 @@ export default class PokemonPicker extends Component {
     }
 
     listPokemon(){
-      return this.state.pokeList.map((pokemon) => {
+      let filteredList
+      if (this.state.currentFilter === '') {
+        filteredList = this.state.pokeList
+      } else {
+        let matchExp = new RegExp(this.state.currentFilter, 'gi')
+        filteredList = this.state.pokeList.filter((pokemon) => pokemon.name.match(matchExp) !== null )
+      }
+      return filteredList.map((pokemon) => {
         if (pokemon.id === this.state.pokeId) {
           return (
           <div className="col-md-3">
-            <PokemonButton className="btn btn-primary active" key={pokemon.id} pokemon={pokemon} handleClick={this.handleClick} />
+            <PokemonButton className="pokebutton btn btn-primary active" key={pokemon.id} pokemon={pokemon} handleClick={this.handleClick} />
           </div>
           )
         } else {
           return (
             <div className="col-md-3">
-            <PokemonButton className="btn btn-primary" key={pokemon.id} pokemon={pokemon} handleClick={this.handleClick} />
+            <PokemonButton className="pokebutton btn btn-primary" key={pokemon.id} pokemon={pokemon} handleClick={this.handleClick} />
             </div>
           )
       }
@@ -60,27 +78,24 @@ export default class PokemonPicker extends Component {
   }
 
   nextPage() {
-    this.listPokemon().slice(this.state.current, this.state.current + 10)
-    this.setState({
-      currentEnd: this.state.current + 10
-    })
+    return function() {}
   }
 
     render() {
       return (
-        <div className="col-md-12">
+        <div className="col-md-8 col-md-offset-2">
           <form onSubmit={this.handleSubmit}>
-            <input type="submit" />
+            <input className="btn btn-primary submit-btn" type="submit" value="Submit" />
           </form>
-          <InfiniteScroll next={this.nextPage()}
+          <input type="text" onChange={this.handleFilterChange} />
+          <InfiniteScroll nextPage={this.nextPage()}
           hasMore={true}
           loader={<h4>Loading...</h4>}>
             <div className="list">
               <h1 className="list-title">Select Your Pokemon</h1>
-              {this.listPokemon()}
+              {this.listPokemon().slice(0, 15)}
             </div>
           </InfiniteScroll>
-
         </div>
       )
     }
