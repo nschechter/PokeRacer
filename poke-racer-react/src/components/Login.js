@@ -15,7 +15,7 @@ class Login extends Component {
 		e.preventDefault()
 	}
 
-	// required for InputBox components
+	//required for InputBox components
 	handleValues(name, value) {
 		let newValues = this.state.values
 		newValues[name] = value
