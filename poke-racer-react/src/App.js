@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
+import Login from './components/Login'
 import WebsocketListener from './components/sockets/WebsocketListener'
 
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
         <div className="App-header">
         </div>
           <h2>Welcome to PokéRaces</h2>
+        <Login />
         {this.displayPokemon()}
         <WebsocketListener
           debug
@@ -38,9 +40,8 @@ class App extends Component {
           url={'ws://localhost:3001/cable'}
          />
       </div>
-    );
+    )
   }
 }
-
 
 export default App;
