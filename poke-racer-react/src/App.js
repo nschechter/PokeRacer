@@ -1,49 +1,46 @@
 import React, { Component } from 'react';
-import Websocket from 'react-websocket';
-
-
-
+import { NavLink } from 'react-router-dom'
+import Login from './components/Login'
+import WebsocketListener from './components/sockets/WebsocketListener'
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: ''
+      participants: []
     };
-
+    this.handleNewParticipant = this.handleNewParticipant.bind(this)
   }
 
 
-  handleData(data) {
-    // debugger
-    let result = JSON.parse(data);
-    console.log(data);
-    if (result.message && result.message.user) {
-      this.setState({message: result.message.user});
-    }
-
+  handleNewParticipant(participant) {
+    this.setState({
+      participants: [...this.state.participants, participant]
+    })
   }
 
-  componentWillMount() {
-
-  }
-
-  componentDidMount() {
-    fetch('http://localhost:3001/v1/pokemon').then((resp) => resp )
+  displayPokemon() {
+    return this.state.participants.map((p) => {
+      return <img src={p.pokemon.img_url} />
+    })
   }
 
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
         </div>
-        {this.state.message}
-        <Websocket url='ws://localhost:3001/cable'
-        onMessage={this.handleData.bind(this)}/>
+          <h2>Welcome to PokéRaces</h2>
+        <Login />
+        {this.displayPokemon()}
+        <WebsocketListener
+          debug
+          handleReceived={this.handleNewParticipant}
+          channel={'AddNewParticipantChannel'}
+          url={'ws://localhost:3001/cable'}
+         />
       </div>
-    );
+    )
   }
 }
 
