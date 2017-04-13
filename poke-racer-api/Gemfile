@@ -23,7 +23,7 @@ gem 'redis', '~> 3.0'
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'bcrypt'
-
+gem 'httparty'
 gem 'jwt'
 gem 'active_model_serializers'
 # Use Capistrano for deployment
