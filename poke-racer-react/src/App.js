@@ -30,7 +30,6 @@ class App extends Component {
         <div className="App-header">
         </div>
           <h2>Welcome to PokéRaces</h2>
-        </div>
         {this.displayPokemon()}
         <WebsocketListener
           debug
