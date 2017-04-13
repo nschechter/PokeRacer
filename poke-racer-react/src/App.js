@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom'
 import Login from './components/Login'
 import WebsocketListener from './components/sockets/WebsocketListener'
+import ConnectedPokemonPicker from './components/PokemonPicker'
 import { addParticipant } from './actions/addParticipant'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -11,7 +11,6 @@ class App extends Component {
     super(props);
     this.handleNewParticipant = this.handleNewParticipant.bind(this)
   }
-
 
   handleNewParticipant(participant) {
     console.log(participant);
@@ -30,11 +29,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-        </div>
         <h2>Welcome to PokéRaces</h2>
         <Login />
         {this.displayPokemon()}
+        <ConnectedPokemonPicker />
         <WebsocketListener
           debug
           handleReceived={this.handleNewParticipant}

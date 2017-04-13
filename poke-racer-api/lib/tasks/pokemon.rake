@@ -14,7 +14,6 @@ namespace :pokemon do
 	    		   {format: :json})
 
 	  	createPokemonFromInfo(response)
-	  	puts "Created #{name}"
 
 	   	#account for weirdo jump on pokeapi
 	   	if i == 721
@@ -43,4 +42,5 @@ def createPokemonFromInfo(response)
     img_url = response["sprites"]["front_default"]
     
     Pokemon.create!(name: name, speed: speed, weight: weight, height: height, img_url: img_url)
+    puts "Created #{name}"
 end
