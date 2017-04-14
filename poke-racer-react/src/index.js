@@ -11,17 +11,17 @@ import Navbar from './components/Navbar'
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedApp />    
+    <Router history={browserHistory}>
+      <div>
+        <Route path="/" component={Navbar}/>
+        <Switch>
+          <Route exact path="/" component={ConnectedApp}/>
+          <Route path="/races" component={Races}/>
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+    </Router>
+
   </Provider>,
   document.getElementById('root')
 );
-//   <Router history={browserHistory}>
-//     <div>
-//     <Route path="/" component={Navbar}/>
-//       <Switch>
-// <Route exact path="/" component={ConnectedApp}/>
-// <Route path="/races" component={Races}/>
-// <Route component={NotFound} />
-//       </Switch>
-//     </div>
-//   </Router>
