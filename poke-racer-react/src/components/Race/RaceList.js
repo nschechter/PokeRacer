@@ -14,10 +14,10 @@ class RaceList extends Component {
     }
     this.listRaces = this.listRaces.bind(this)
     this.handleAddRace = this.handleAddRace.bind(this)
-    this.handleRemoveRace = this.handleRemoveRace.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.onAddRace = this.onAddRace.bind(this)
+    this.handleClick = this.handleClick.bind(this)
     this.props.getActiveRaces()
   }
 
@@ -27,9 +27,6 @@ class RaceList extends Component {
     })
   }
 
-  handleRemoveRace() {
-
-  }
 
   handleClose() {
     this.setState({
@@ -54,9 +51,13 @@ class RaceList extends Component {
     })
   }
 
+  handleClick(e) {
+
+  }
+
   listRaces() {
     return this.props.races.map((race) => {
-      return <Race key={race.id} race={race}/>
+      return <button key={race.id} race={race} onClick={this.handleClick}/>
     })
   }
 
@@ -91,6 +92,7 @@ class RaceList extends Component {
             <input className="btn btn-primary submit-btn" type="submit" value="Submit" />
           </form>
         </Modal>
+        {this.listRaces()}
       </div>
     )
   }

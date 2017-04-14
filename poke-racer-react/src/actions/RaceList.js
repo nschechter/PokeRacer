@@ -24,7 +24,7 @@ export const getActiveRaces = () => {
   return (dispatch) => {
   return fetch('http://localhost:3001/v1/races/active')
   .then(response => response.json())
-  .then((races) => {
+  .then((races) => {  
     dispatch({type: 'GET_RACES', payload: races})
   })
 }
