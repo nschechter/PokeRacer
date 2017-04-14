@@ -20,7 +20,7 @@ class Login extends Component {
 		axios({
 			method: 'post',
 			url: 'http://localhost:3001/v1/sessions',
-			data: JSON.stringify(payload)
+			data: payload
 		})
 		.then(resp => {
 			this.props.setToken(resp.data.token)
