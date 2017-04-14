@@ -8,6 +8,6 @@ class RaceList extends React {
 const mapStateToProps = (state) => {
   return  (
   account: state.Account
-  races: state.Race
+  races: state.RaceList
   )
 }
