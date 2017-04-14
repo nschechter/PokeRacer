@@ -1,12 +1,13 @@
 .pokebutton {
   height: 200px;
   width: 200px;
+  margin-right: 0;
 }
 
 .list-title {
   text-align: center;
 }
 
-.submit-btn {
-  align: center;
+.centered {
+  text-align: center;
 }
