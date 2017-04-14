@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import InputBox from './InputBox'
+import axios from 'axios'
 
 class Login extends Component {
 	constructor() {
@@ -16,14 +17,14 @@ class Login extends Component {
 
 		let payload = { username: this.state.values.username, password: this.state.values.password }
 
-		fetch("http://localhost:3001/v1/sessions", { 
-			method: "POST", 
-			body: JSON.stringify(payload)
+		axios({
+			method: 'post',
+			url: 'http://localhost:3001/v1/sessions',
+			data: JSON.stringify(payload)
 		})
-		.then(resp => resp.json())
-		.then((data) => {
-			this.props.setToken(data.token)
-			localStorage.setItem('token', data.token);
+		.then(resp => {
+			this.props.setToken(resp.data.token)
+			localStorage.setItem('token', resp.data.token);
 		})
 	}
 
@@ -39,14 +40,14 @@ class Login extends Component {
 	render() {
 		return (
 			<div className="login">
-				Login
-				<form onSubmit={this.handleSubmit}>
-					<InputBox name="username" maxCharCount={8} paramsName="account[username]" onChange={this.handleValues} />
-					<InputBox name="password" type="password" paramsName="account[password]" onChange={this.handleValues} />
-					<input type="submit" />
-				</form>
+			Login
+			<form onSubmit={this.handleSubmit}>
+			<InputBox name="username" maxCharCount={8} paramsName="account[username]" onChange={this.handleValues} />
+			<InputBox name="password" type="password" paramsName="account[password]" onChange={this.handleValues} />
+			<input type="submit" />
+			</form>
 			</div>
-		)
+			)
 	}
 }
 

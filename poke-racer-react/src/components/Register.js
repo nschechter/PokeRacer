@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import InputBox from './InputBox'
+import axios from 'axios'
 
 class Register extends Component {
 	constructor() {
@@ -13,6 +14,13 @@ class Register extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault()
+		axios.post('http://localhost:3001/v1/registrations', 
+			{ account: {username: this.state.values.username, password: this.state.values.password }
+		})
+		.then(resp => {
+			this.props.setToken(resp.data.token)
+			localStorage.setItem('token', resp.data.token);
+		})
 	}
 
 	//required for InputBox components
