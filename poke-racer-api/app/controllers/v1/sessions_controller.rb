@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class V1::SessionsController < ApplicationController
 	def create
 		account = Account.find_by(params[:username])
 		if account && account.authenticate(params[:password])
@@ -10,6 +10,6 @@ class SessionsController < ApplicationController
 	end
 
 	def destroy
-		
+
 	end
 end
