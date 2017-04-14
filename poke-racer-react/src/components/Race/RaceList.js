@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Race from './Race'
 import { addRace, removeRace, getActiveRaces } from '../../actions/RaceList'
@@ -11,7 +12,9 @@ class RaceList extends Component {
     super(props)
     this.state = {
       isModalOpen: false,
-      raceTitle: ''
+      raceTitle: '',
+      raceId: '',
+      redirect: false
     }
     this.listRaces = this.listRaces.bind(this)
     this.handleAddRace = this.handleAddRace.bind(this)
@@ -19,6 +22,7 @@ class RaceList extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.onAddRace = this.onAddRace.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleRedirect = this.handleRedirect.bind(this)
     this.props.getActiveRaces()
   }
 
@@ -28,6 +32,13 @@ class RaceList extends Component {
     })
   }
 
+  handleRedirect() {
+    return (
+      <Redirect
+        to={'/races/' + this.state.raceId}
+      />
+    )
+  }
 
   handleClose() {
     this.setState({
@@ -53,16 +64,17 @@ class RaceList extends Component {
   }
 
   handleClick(e) {
-
+    this.setState({
+      raceId: e.target.closest("button").id,
+      redirect: true
+    })
   }
 
   listRaces() {
     return this.props.races.map((race) => {
       return (
         <div className="col-md-10 col-md-offset-2">
-          <div className="row race-button">
-            <button key={race.id} race={race} onClick={this.handleClick}><h2>{race.title}</h2></button>
-          </div>
+            <button className="race-button" key={race.id} id={race.id} race={race} onClick={this.handleClick}><h2>Race Name: {race.title}</h2></button>
         </div>
       )
     })
@@ -83,6 +95,7 @@ class RaceList extends Component {
 
     return (
       <div>
+      {this.state.redirect ? this.handleRedirect() : null}
       <h1>Join or Add A Race</h1>
       <button onClick={this.handleAddRace}>Add Race</button>
       <Modal
