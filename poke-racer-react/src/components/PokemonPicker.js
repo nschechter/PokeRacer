@@ -20,7 +20,6 @@ class PokemonPicker extends Component {
       currentFilter: '',
       isModalOpen: false,
       redirect: false
-
     }
     this.nextPage = this.nextPage.bind(this)
     this.listPokemon = this.listPokemon.bind(this)
@@ -63,7 +62,7 @@ class PokemonPicker extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.setPokemon(this.state.pokeId)
+    this.props.onSetPokemon(this.state.pokeId)
     this.setState({
       redirect: true
     })
@@ -151,19 +150,17 @@ class PokemonPicker extends Component {
     }
   }
 
-  const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-      setPokemon: setPokemon
-    }, dispatch)
-  }
+  const mapDispatchToProps = (dispatch) => ({
+    onSetPokemon: (id) => {
+      dispatch(setPokemon(id))
+    },
+  })
 
   const mapStateToProps = (state) => {
     return {
 
     }
   }
-
-
 
   const ConnectedPokemonPicker = connect(mapStateToProps, mapDispatchToProps)(PokemonPicker)
 
