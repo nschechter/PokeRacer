@@ -102,10 +102,10 @@ export default class PokemonPicker extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-return bindActionCreators({
-  setPokemon: setPokemon
-}, dispatch)
-}
+  return bindActionCreators({
+    setPokemon: setPokemon
+  }, dispatch)
+ }
 
 
 export const ConnectedPokemonPicker = connect(null, mapDispatchToProps)(PokemonPicker)
