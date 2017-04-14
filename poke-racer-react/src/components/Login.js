@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import InputBox from './InputBox'
+import axios from 'axios'
 
 class Login extends Component {
 	constructor() {
@@ -13,6 +14,18 @@ class Login extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault()
+
+		let payload = { username: this.state.values.username, password: this.state.values.password }
+
+		axios({
+			method: 'post',
+			url: 'http://localhost:3001/v1/sessions',
+			data: JSON.stringify(payload)
+		})
+		.then(resp => {
+			this.props.setToken(resp.data.token)
+			localStorage.setItem('token', resp.data.token);
+		})
 	}
 
 	//required for InputBox components
@@ -27,13 +40,14 @@ class Login extends Component {
 	render() {
 		return (
 			<div className="login">
-				<form onSubmit={this.handleSubmit}>
-					<InputBox name="username" maxCharCount={8} paramsName="account[username]" onChange={this.handleValues} />
-					<InputBox name="password" type="password" paramsName="account[password]" onChange={this.handleValues} />
-					<input type="submit" />
-				</form>
+			Login
+			<form onSubmit={this.handleSubmit}>
+			<InputBox name="username" maxCharCount={8} paramsName="account[username]" onChange={this.handleValues} />
+			<InputBox name="password" type="password" paramsName="account[password]" onChange={this.handleValues} />
+			<input type="submit" />
+			</form>
 			</div>
-		)
+			)
 	}
 }
 

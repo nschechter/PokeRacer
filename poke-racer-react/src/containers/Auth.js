@@ -16,9 +16,9 @@ class Auth extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	onSetToken: (token) => {
-		setToken: setToken(token)
-	}
+  	onSetToken: (token) => {
+    	dispatch(setToken(token))
+  	},
 })
 
 const connectedAuth = connect(null, mapDispatchToProps)(Auth)
