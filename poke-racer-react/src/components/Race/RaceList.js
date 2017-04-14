@@ -17,6 +17,7 @@ class RaceList extends Component {
     this.handleRemoveRace = this.handleRemoveRace.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.onAddRace = this.onAddRace.bind(this)
   }
 
   handleAddRace() {
@@ -37,11 +38,12 @@ class RaceList extends Component {
 
 
   onAddRace(e) {
-    let race = {
-      name: this.state.raceTitle,
-      creator: account.username
-    }
     e.preventDefault()
+    let name = this.state.raceTitle
+    let race = {
+      name: name,
+      creator: this.props.account.username
+    }
     this.props.addRace(race, this.props.account.token)
   }
 
@@ -102,10 +104,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onAddRace: (race, token) => {
+  addRace: (race, token) => {
     dispatch(addRace(race, token))
   },
-  onRemoveRace: (id) => {
+  removeRace: (id) => {
     dispatch(removeRace(id))
   },
   getActiveRaces: () => {

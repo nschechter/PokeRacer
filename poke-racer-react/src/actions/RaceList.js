@@ -1,3 +1,5 @@
+import { dispatch } from 'redux'
+
 export const addRace = (race, token) => {
   let request = new Request('http://localhost:3001/v1/races', {
 	method: 'POST',

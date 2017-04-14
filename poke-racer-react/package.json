@@ -3,19 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "reactToolbox": {
-      "include": [
-        "BUTTON",
-        "DATE_PICKER"
-      ],
-      "customProperties": {
-        "animation-duration": "0.3s",
-        "color-accent": "var(--palette-pink-a200)",
-        "color-accent-dark": "var(--palette-pink-700)",
-        "color-primary-contrast": "var(--color-dark-contrast)",
-        "color-accent-contrast": "var(--color-dark-contrast)"
-      },
-      "output": "assets/react-toolbox"
+    "include": [
+      "BUTTON",
+      "DATE_PICKER"
+    ],
+    "customProperties": {
+      "animation-duration": "0.3s",
+      "color-accent": "var(--palette-pink-a200)",
+      "color-accent-dark": "var(--palette-pink-700)",
+      "color-primary-contrast": "var(--color-dark-contrast)",
+      "color-accent-contrast": "var(--color-dark-contrast)"
     },
+    "output": "assets/react-toolbox"
+  },
   "dependencies": {
     "actioncable": "^5.0.2",
     "actioncable-js": "^5.0.0-rc2",
@@ -39,7 +39,8 @@
     "react-toolbox": "^2.0.0-beta.8",
     "react-toolbox-themr": "^1.0.2",
     "react-websocket": "^1.1.6",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "brfs": "^1.4.3",
