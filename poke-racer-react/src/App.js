@@ -5,6 +5,7 @@ import ConnectedPokemonPicker from './components/PokemonPicker'
 import { addParticipant } from './actions/addParticipant'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Race from './components/Race/Race'
 
 class App extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class App extends Component {
         <Login />
         {this.displayPokemon()}
         <ConnectedPokemonPicker />
+        <Race />
         <WebsocketListener
           debug
           handleReceived={this.handleNewParticipant}
