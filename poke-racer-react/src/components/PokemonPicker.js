@@ -102,10 +102,6 @@ class PokemonPicker extends Component {
     })
   }
 
-  nextPage() {
-    return function() {}
-  }
-
   render() {
     const customStyles = {
       content : {
