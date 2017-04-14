@@ -93,7 +93,7 @@ export default class PokemonPicker extends Component {
           loader={<h4>Loading...</h4>}>
             <div className="list">
               <h1 className="list-title">Select Your Pokemon</h1>
-              {this.listPokemon().slice(0, 15)}
+              {this.listPokemon().slice(0, 30)}
             </div>
           </InfiniteScroll>
         </div>
