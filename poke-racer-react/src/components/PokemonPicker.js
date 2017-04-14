@@ -7,17 +7,19 @@ import InfiniteScroll from 'react-component-infinite-scroll';
 import { Redirect } from 'react-router-dom'
 import Modal from 'react-modal'
 import '../index.css'
+import ReactRedirect from 'react-redirect'
 
-export default class PokemonPicker extends Component {
-    constructor() {
-      super()
-      this.state = {
-        pokeList: [],
-        pokeId: null,
-        pokeName: null,
-        currentIndex: null,
-        currentFilter: '',
-        isModalOpen: false
+class PokemonPicker extends Component {
+  constructor() {
+    super()
+    this.state = {
+      pokeList: [],
+      pokeId: null,
+      pokeName: null,
+      currentIndex: null,
+      currentFilter: '',
+      isModalOpen: false,
+      redirect: false
 
     }
     this.nextPage = this.nextPage.bind(this)
@@ -30,68 +32,74 @@ export default class PokemonPicker extends Component {
     this.handleRedirect = this.handleRedirect.bind(this)
   }
 
-    handleClick(e){
-      this.setState({
-        isModalOpen: true,
-        pokeId: e.target.key,
-        pokeName: e.target.name
-      })
-    }
+  handleClick(e){
+    this.setState({
+      isModalOpen: true,
+      pokeId: e.target.key,
+      pokeName: e.target.name
+    })
+  }
 
-    handleRedirect() {
-      <Redirect to="/races" />
-    }
+  handleRedirect() {
+    return (
+      <Redirect
+        to={'/races'}
+      />
+    )
+  }
 
-    handleClose() {
-      this.setState({
-        isModalOpen: false,
-        pokeName: ''
-      })
-    }
+  handleClose() {
+    this.setState({
+      isModalOpen: false,
+      pokeName: ''
+    })
+  }
 
-    handleFilterChange(e) {
-      this.setState({
-        currentFilter: e.target.value
-      })
-    }
+  handleFilterChange(e) {
+    this.setState({
+      currentFilter: e.target.value
+    })
+  }
 
-    handleSubmit(e) {
-      e.preventDefault()
-      this.props.setPokemon(this.state.pokeId)
-      this.handleRedirect()
-    }
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.setPokemon(this.state.pokeId)
+    this.setState({
+      redirect: true
+    })
+  }
 
-    componentDidMount() {
-      this.getPokemon()
-    }
+  componentDidMount() {
+    this.getPokemon()
+  }
 
-    getPokemon() {
-      fetch('http://localhost:3001/v1/pokemon')
-      .then((resp) => resp.json())
-      .then((data) => this.setState({pokeList: data}))
-    }
+  getPokemon() {
+    fetch('http://localhost:3001/v1/pokemon')
+    .then((resp) => resp.json())
+    .then((data) => this.setState({pokeList: data}))
+  }
 
-    listPokemon(){
-      let filteredList
-      if (this.state.currentFilter === '') {
-        filteredList = this.state.pokeList
-      } else {
-        let matchExp = new RegExp(this.state.currentFilter, 'gi')
-        filteredList = this.state.pokeList.filter((pokemon) => pokemon.name.match(matchExp) !== null )
-      }
-      return filteredList.map((pokemon) => {
-        if (pokemon.id === this.state.pokeId) {
-          return (
+  listPokemon(){
+    let filteredList
+    if (this.state.currentFilter === '') {
+      filteredList = this.state.pokeList
+    } else {
+      let matchExp = new RegExp(this.state.currentFilter, 'gi')
+      filteredList = this.state.pokeList.filter((pokemon) => pokemon.name.match(matchExp) !== null )
+    }
+    return filteredList.map((pokemon) => {
+      if (pokemon.id === this.state.pokeId) {
+        return (
           <div key={"div-" + pokemon.id} className="col-md-3">
             <PokemonButton className="pokebutton btn btn-primary active" key={pokemon.id} pokemon={pokemon} handleClick={this.handleClick} />
           </div>
-          )
-        } else {
-          return (
-            <div key={"div-" + pokemon.id} className="col-md-3">
-              <PokemonButton className="pokebutton btn btn-primary" key={pokemon.id} pokemon={pokemon} handleClick={this.handleClick} />
-            </div>
-          )
+        )
+      } else {
+        return (
+          <div key={"div-" + pokemon.id} className="col-md-3">
+            <PokemonButton className="pokebutton btn btn-primary" key={pokemon.id} pokemon={pokemon} handleClick={this.handleClick} />
+          </div>
+        )
       }
     })
   }
@@ -100,38 +108,39 @@ export default class PokemonPicker extends Component {
     return function() {}
   }
 
-    render() {
-      const customStyles = {
-       content : {
-         top                   : '50%',
-         left                  : '50%',
-         right                 : 'auto',
-         bottom                : 'auto',
-         marginRight           : '-50%',
-         transform             : 'translate(-50%, -50%)'
-       }
-     };
+  render() {
+    const customStyles = {
+      content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+      }
+    };
 
-      return (
-        <div className="col-md-8 col-md-offset-2">
-              <Modal
-                isOpen={this.state.isModalOpen}
-                onRequestClose={this.handleClose}
-                style={customStyles}
-                contentLabel="Modal"
-              >
-                <form onSubmit={this.handleSubmit}>
-                  <h4>You have selected {this.state.pokeName}. Are you ready to begin your journey?</h4>
-                  <input className="btn btn-primary submit-btn" type="submit" value="Submit" />
-                </form>
-              </Modal>
+    return (
+      <div className="col-md-8 col-md-offset-2">
+        {this.state.redirect ? this.handleRedirect() : null}
+        <Modal
+          isOpen={this.state.isModalOpen}
+          onRequestClose={this.handleClose}
+          style={customStyles}
+          contentLabel="Modal"
+          >
+            <form onSubmit={this.handleSubmit}>
+              <h4>You have selected {this.state.pokeName}. Are you ready to begin your journey?</h4>
+              <input className="btn btn-primary submit-btn" type="submit" value="Submit" />
+            </form>
+          </Modal>
           <div className="centered">
             <h4>Search For A Pokémon</h4>
             <input type="text" onChange={this.handleFilterChange} />
           </div>
           <InfiniteScroll nextPage={this.nextPage()}
-          hasMore={true}
-          loader={<h4>Loading...</h4>}>
+            hasMore={true}
+            loader={<h4>Loading...</h4>}>
             <div className="list">
               <h1 className="list-title">Select Your Pokémon</h1>
               {this.listPokemon()}
@@ -140,18 +149,22 @@ export default class PokemonPicker extends Component {
         </div>
       )
     }
-}
+  }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    setPokemon: setPokemon
-  }, dispatch)
- }
+  const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+      setPokemon: setPokemon
+    }, dispatch)
+  }
 
- const mapStateToProps = (state) => {
-   return {}
- }
+  const mapStateToProps = (state) => {
+    return {
+
+    }
+  }
 
 
 
-export const ConnectedPokemonPicker = connect(mapStateToProps, mapDispatchToProps)(PokemonPicker)
+  const ConnectedPokemonPicker = connect(mapStateToProps, mapDispatchToProps)(PokemonPicker)
+
+  export default ConnectedPokemonPicker
