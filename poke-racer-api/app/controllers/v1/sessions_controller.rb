@@ -10,6 +10,6 @@ class V1::SessionsController < ApplicationController
 	end
 
 	def destroy
-		
+
 	end
 end
