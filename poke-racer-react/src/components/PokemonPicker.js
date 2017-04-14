@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux'
 import { setPokemon } from '../actions/Account'
 import { connect } from 'react-redux'
 import PokemonButton from './PokemonButton'
-import InfiniteScroll from 'react-component-infinite-scroll';
 import { Redirect } from 'react-router-dom'
 import Modal from 'react-modal'
 import '../index.css'
@@ -137,14 +136,10 @@ class PokemonPicker extends Component {
             <h4>Search For A Pokémon</h4>
             <input type="text" onChange={this.handleFilterChange} />
           </div>
-          <InfiniteScroll nextPage={this.nextPage()}
-            hasMore={true}
-            loader={<h4>Loading...</h4>}>
             <div className="list">
               <h1 className="list-title">Select Your Pokémon</h1>
               {this.listPokemon()}
             </div>
-          </InfiniteScroll>
         </div>
       )
     }
