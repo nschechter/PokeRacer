@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import { setToken } from '../../actions/Account'
 import { connect } from 'react-redux'
 import Race from './Race'
 import { addRace, removeRace, getActiveRaces } from '../../actions/RaceList'
@@ -24,7 +25,18 @@ class RaceList extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
     this.props.getActiveRaces()
+
   }
+
+  componentWillMount() {
+    if (!this.props.account.token) {
+    let token = localStorage.getItem("token")
+    if (token) {
+      this.props.setToken(token)
+      }
+    }
+  }
+
 
   handleAddRace() {
     this.setState({
@@ -54,6 +66,9 @@ class RaceList extends Component {
       name: name,
     }
     this.props.addRace(race, this.props.account.token)
+    this.setState({
+      raceTitle: ''
+    })
     this.handleClose()
   }
 
@@ -71,10 +86,11 @@ class RaceList extends Component {
   }
 
   listRaces() {
-    return this.props.races.map((race) => {
+    let races = this.props.races
+    return races.map((race) => {
       return (
-        <div className="col-md-10 col-md-offset-2">
-            <button className="race-button" key={race.id} id={race.id} race={race} onClick={this.handleClick}><h2>Race Name: {race.title}</h2></button>
+        <div key={race.id} className="col-md-10 col-md-offset-2">
+            <button className="race-button" key={races.indexOf(race)} id={race.id} onClick={this.handleClick}><h2>Race Name: {race.title}</h2></button>
         </div>
       )
     })
@@ -135,6 +151,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getActiveRaces: () => {
     dispatch(getActiveRaces())
+  },
+  setToken: (token) => {
+    dispatch(setToken(token))
   }
 })
 
