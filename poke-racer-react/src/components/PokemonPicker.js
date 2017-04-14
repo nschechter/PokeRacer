@@ -20,7 +20,6 @@ class PokemonPicker extends Component {
       isModalOpen: false,
       redirect: false
     }
-    this.nextPage = this.nextPage.bind(this)
     this.listPokemon = this.listPokemon.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.getPokemon = this.getPokemon.bind(this)
