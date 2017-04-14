@@ -6,6 +6,7 @@ import { addParticipant } from './actions/addParticipant'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Race from './components/Race/Race'
+import Auth from './containers/Auth'
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class App extends Component {
     return (
       <div className="App">
         <h2>Welcome to PokéRaces</h2>
-        <Login />
+        {!this.props.account.token ? <Auth /> : false}
         {this.displayPokemon()}
         <ConnectedPokemonPicker />
         <Race />
@@ -55,9 +56,11 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    race: state.Race
+    race: state.Race,
+    account: state.Account
   }
 }
+
 const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
 
 export default ConnectedApp

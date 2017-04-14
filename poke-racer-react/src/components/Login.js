@@ -13,6 +13,18 @@ class Login extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault()
+
+		let payload = { username: this.state.values.username, password: this.state.values.password }
+
+		fetch("http://localhost:3001/v1/sessions", { 
+			method: "POST", 
+			body: JSON.stringify(payload)
+		})
+		.then(resp => resp.json())
+		.then((data) => {
+			this.props.setToken(data.token)
+			localStorage.setItem('token', data.token);
+		})
 	}
 
 	//required for InputBox components
@@ -27,6 +39,7 @@ class Login extends Component {
 	render() {
 		return (
 			<div className="login">
+				Login
 				<form onSubmit={this.handleSubmit}>
 					<InputBox name="username" maxCharCount={8} paramsName="account[username]" onChange={this.handleValues} />
 					<InputBox name="password" type="password" paramsName="account[password]" onChange={this.handleValues} />

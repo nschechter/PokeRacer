@@ -26,7 +26,8 @@ class Register extends Component {
 
 	render() {
 		return (
-			<div className="login">
+			<div className="register">
+				Register
 				<form onSubmit={this.handleSubmit}>
 					<InputBox name="username" maxCharCount={8} paramsName="account[username]" onChange={this.handleValues} />
 					<InputBox name="password" type="password" paramsName="account[password]" onChange={this.handleValues} />
