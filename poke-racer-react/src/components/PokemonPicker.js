@@ -125,12 +125,15 @@ export default class PokemonPicker extends Component {
                   <input className="btn btn-primary submit-btn" type="submit" value="Submit" />
                 </form>
               </Modal>
-          <input type="text" onChange={this.handleFilterChange} />
+          <div className="centered">
+            <h4>Search For A Pokémon</h4>
+            <input type="text" onChange={this.handleFilterChange} />
+          </div>
           <InfiniteScroll nextPage={this.nextPage()}
           hasMore={true}
           loader={<h4>Loading...</h4>}>
             <div className="list">
-              <h1 className="list-title">Select Your Pokemon</h1>
+              <h1 className="list-title">Select Your Pokémon</h1>
               {this.listPokemon()}
             </div>
           </InfiniteScroll>
