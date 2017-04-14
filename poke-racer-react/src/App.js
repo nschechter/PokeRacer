@@ -3,6 +3,7 @@ import Login from './components/Login'
 import WebsocketListener from './components/sockets/WebsocketListener'
 import ConnectedPokemonPicker from './components/PokemonPicker'
 import { addParticipant, removeParticipant } from './actions/changeParticipants'
+import { setToken } from './actions/Account'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Race from './components/Race/Race'
@@ -31,6 +32,12 @@ class App extends Component {
       })
     }
     return null
+  }
+
+  componentWillMount() {
+    let token = localStorage.getItem("token")
+    if (token)
+      this.props.setToken(token)
   }
 
   render() {
@@ -62,7 +69,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
   {
     addParticipant: addParticipant,
-    removeParticipant: removeParticipant
+    removeParticipant: removeParticipant,
+    setToken: setToken
   }, dispatch)
 }
 
