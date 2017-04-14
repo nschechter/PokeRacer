@@ -5,7 +5,7 @@ export default function Account(state = { token: null, username: null, pokemon: 
     case 'SET_TOKEN':
       return Object.assign({}, state, { token: action.payload })
     case 'SET_POKEMON':
-      return Object.assign({}, state, { pokemon: action.payload }) 
+      return Object.assign({}, state, { pokemon: action.payload })
     default:
       return state;
   }
