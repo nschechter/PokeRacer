@@ -17,7 +17,7 @@ class V1::RacesController < ApplicationController
   end
 
   def active
-    active_races = Race.find_by(is_active: true)
+    active_races = Race.where(is_active: true)
     render json: active_races
   end
 
