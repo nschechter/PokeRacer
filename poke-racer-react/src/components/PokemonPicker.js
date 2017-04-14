@@ -33,11 +33,9 @@ class PokemonPicker extends Component {
 
   handleClick(e){
     this.setState({
-
-      pokeId: e.target.id,
-      pokeName: e.target.name,
+      pokeId: e.target.closest("button").id,
+      pokeName: e.target.closest("button").name,
       isModalOpen: true
-
     })
   }
 
