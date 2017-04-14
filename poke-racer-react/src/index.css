@@ -11,3 +11,9 @@
 .centered {
   text-align: center;
 }
+
+.race-button {
+  height: 200px;
+  width: 800px;
+  margin-right: 0;
+}

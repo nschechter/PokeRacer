@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Race from './Race'
 import { addRace, removeRace, getActiveRaces } from '../../actions/RaceList'
 import Modal from 'react-modal'
+import '../../index.css'
 
 
 class RaceList extends Component {
@@ -57,7 +58,13 @@ class RaceList extends Component {
 
   listRaces() {
     return this.props.races.map((race) => {
-      return <button key={race.id} race={race} onClick={this.handleClick}/>
+      return (
+        <div className="col-md-10 col-md-offset-2">
+          <div className="row race-button">
+            <button key={race.id} race={race} onClick={this.handleClick}><h2>{race.title}</h2></button>
+          </div>
+        </div>
+      )
     })
   }
 
