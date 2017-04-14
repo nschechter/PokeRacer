@@ -6,8 +6,8 @@ import Modal from 'react-modal'
 
 
 class RaceList extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       isModalOpen: false,
       raceTitle: ''
@@ -18,6 +18,7 @@ class RaceList extends Component {
     this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.onAddRace = this.onAddRace.bind(this)
+    this.props.getActiveRaces()
   }
 
   handleAddRace() {
@@ -42,9 +43,9 @@ class RaceList extends Component {
     let name = this.state.raceTitle
     let race = {
       name: name,
-      creator: this.props.account.username
     }
     this.props.addRace(race, this.props.account.token)
+    this.handleClose()
   }
 
   handleChange(e) {

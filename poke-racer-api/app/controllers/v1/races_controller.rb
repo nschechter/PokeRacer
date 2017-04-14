@@ -2,6 +2,7 @@ class V1::RacesController < ApplicationController
   def create
     account = Account.from_token(request.headers["bearer"])
     race = Race.new(race_params)
+    race.creator_id = account.id
     race.is_active = true
     if race.save
       account.races << race
@@ -22,6 +23,6 @@ class V1::RacesController < ApplicationController
 
   private
   def race_params
-    params.require(:race).permit(:creator_id, :title)
+    params.require(:race).permit(:title)
   end
 end

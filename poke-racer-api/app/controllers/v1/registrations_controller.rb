@@ -1,6 +1,7 @@
 class V1::RegistrationsController < ApplicationController
   def create
   	account = Account.new(account_params)
+    account.pokemon_id = 1
   	if account.save
   		token = Auth.issue({account_id: account.id})
   		render json: {token: token}

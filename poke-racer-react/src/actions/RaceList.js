@@ -1,15 +1,16 @@
-// import { dispatch } from 'redux'
+import axios from 'axios'
 
 export const addRace = (race, token) => {
   return (dispatch) => {
-    let request = new Request('http://localhost:3001/v1/races', {
-      method: 'POST',
-      headers: new Headers({"bearer": token})
-    })
-    fetch(request)
-      .then(response => response.json())
-      .then(race => dispatch({type: 'ADD_RACE', payload: race}))
-  }
+    axios({
+      method:'post',
+      url:'http://localhost:3001/v1/races',
+      headers: {'bearer': token},
+      data: {race: {title: race.name}}
+     }).then(resp => {
+       dispatch({type: 'ADD_RACE', payload: race})
+     })
+      }
 }
 
 export const removeRace = (id) => {
@@ -23,6 +24,9 @@ export const getActiveRaces = () => {
   return (dispatch) => {
   return fetch('http://localhost:3001/v1/races/active')
   .then(response => response.json())
-  .then(races => dispatch({type: 'GET_RACES', payload: races}))
+  .then((races) => {
+    debugger
+    dispatch({type: 'GET_RACES', payload: races})
+  })
 }
 }
