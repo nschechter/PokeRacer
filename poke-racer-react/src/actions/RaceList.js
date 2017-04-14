@@ -13,3 +13,9 @@ export const removeRace = (id) => {
     id
   }
 }
+
+export const getActiveRaces = () {
+  return fetch('http://localhost:3001/v1/races/active')
+  .then(response => response.json())
+  .then(races => dispatch({type: 'GET_RACES', payload: races}))
+}

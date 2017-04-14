@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Race from './Race'
-import { addRace, removeRace } from '../../actions/RaceList'
+import { addRace, removeRace, getActiveRaces } from '../../actions/RaceList'
 import Modal from 'react-modal'
 
 
@@ -107,6 +107,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onRemoveRace: (id) => {
     dispatch(removeRace(id))
+  },
+  getActiveRaces: () => {
+    dispatch(getActiveRaces())
   }
 })
 
