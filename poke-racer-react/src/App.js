@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Login from './components/Login'
 import WebsocketListener from './components/sockets/WebsocketListener'
 import ConnectedPokemonPicker from './components/PokemonPicker'
-import { addParticipant } from './actions/addParticipant'
+import { addParticipant, removeParticipant } from './actions/changeParticipants'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Race from './components/Race/Race'
@@ -12,11 +12,16 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleNewParticipant = this.handleNewParticipant.bind(this)
+    this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this)
   }
 
   handleNewParticipant(participant) {
     console.log(participant);
     this.props.addParticipant(participant)
+  }
+  handleRemoveParticipant(participant) {
+    console.log(participant);
+    this.props.removeParticipant(participant)
   }
 
   displayPokemon() {
@@ -42,6 +47,12 @@ class App extends Component {
           channel={'AddNewParticipantChannel'}
           url={'ws://localhost:3001/cable'}
         />
+        <WebsocketListener
+          debug
+          handleReceived={this.handleRemoveParticipant}
+          channel={'RemoveParticipantChannel'}
+          url={'ws://localhost:3001/cable'}
+        />
       </div>
     )
   }
@@ -50,7 +61,8 @@ class App extends Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
   {
-    addParticipant: addParticipant
+    addParticipant: addParticipant,
+    removeParticipant: removeParticipant
   }, dispatch)
 }
 

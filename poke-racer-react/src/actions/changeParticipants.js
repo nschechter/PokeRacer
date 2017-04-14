@@ -4,3 +4,10 @@ export const addParticipant = (participant) => {
     payload: participant
   }
 }
+
+export const removeParticipant = (id) => {
+  return {
+    type: 'REMOVE_PARTICIPANT',
+    id
+  }
+}
