@@ -42,7 +42,7 @@ class RaceList extends Component {
       creator: account.username
     }
     e.preventDefault()
-    this.props.addRace(race)
+    this.props.addRace(race, this.props.account.token)
   }
 
   handleChange(e) {
@@ -102,8 +102,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onAddRace: (race) => {
-    dispatch(addRace(race))
+  onAddRace: (race, token) => {
+    dispatch(addRace(race, token))
   },
   onRemoveRace: (id) => {
     dispatch(removeRace(id))
