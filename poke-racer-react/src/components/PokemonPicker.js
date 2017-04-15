@@ -60,9 +60,21 @@ class PokemonPicker extends Component {
   handleSubmit(e) {
     e.preventDefault()
     this.props.onSetPokemon(this.state.pokeId, this.state.pokeName)
+    localStorage.setItem('pokemon', this.state.pokeName);
+    localStorage.setItem('pokeId', this.state.pokeId);
     this.setState({
       redirect: true
     })
+  }
+
+  componentWillMount() {
+    let pokeId = localStorage.getItem("pokeId")
+    if (pokeId) {
+      this.setState({
+        redirect: true
+      })
+      this.handleRedirect()
+    }
   }
 
   componentDidMount() {

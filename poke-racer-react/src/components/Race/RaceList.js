@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import { setToken } from '../../actions/Account'
+import { setToken, setUsername, setPokemon } from '../../actions/Account'
 import { connect } from 'react-redux'
 import { addRace, removeRace, getActiveRaces } from '../../actions/RaceList'
 import ConnectedProfileBadge from '../ProfileBadge'
@@ -30,8 +30,13 @@ class RaceList extends Component {
 
   componentWillMount() {
     if (!this.props.account.token) {
-    let token = localStorage.getItem("token")
+      let token = localStorage.getItem("token")
+      let username = localStorage.getItem("username")
+      let id = localStorage.getItem("pokeId")
+      let name = localStorage.getItem("pokemon")
     if (token) {
+      this.props.onSetUsername(username)
+      this.props.setPokemon(id, name)
       this.props.setToken(token)
       }
     }
@@ -155,6 +160,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setToken: (token) => {
     dispatch(setToken(token))
+  },
+  onSetUsername: (username) => {
+    dispatch(setUsername(username))
+  },
+  setPokemon: (id, name) => {
+    dispatch(setPokemon(id, name))
   }
 })
 

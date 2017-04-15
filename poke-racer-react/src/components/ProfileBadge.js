@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { setToken } from '../actions/Account'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Modal from 'react-modal'
@@ -18,14 +17,6 @@ class ProfileBadge extends Component {
       this.handleClose = this.handleClose.bind(this)
     }
 
-    componentWillMount() {
-      if (!this.props.account.token) {
-      let token = localStorage.getItem("token")
-      if (token) {
-        this.props.setToken(token)
-        }
-      }
-    }
 
     handleRedirect() {
       return (
@@ -79,7 +70,6 @@ class ProfileBadge extends Component {
             contentLabel="Modal"
             >
               <form onSubmit={this.handleSubmit}>
-                <input className="btn btn-primary submit-btn" type="submit" value="Edit" />
                 <h2>Your Profile: </h2>
                 <br />
                 <h4>Username: {this.props.account.username}</h4>
@@ -93,18 +83,12 @@ class ProfileBadge extends Component {
 
   }
 
-    const mapDispatchToProps = (dispatch) => ({
-      setToken: (token) => {
-        dispatch(setToken(token))
-      }
-    })
-
     const mapStateToProps = (state) => {
       return  {
         account: state.Account
       }
     }
 
-    const ConnectedProfileBadge = connect(mapStateToProps, mapDispatchToProps)(ProfileBadge)
+    const ConnectedProfileBadge = connect(mapStateToProps, null)(ProfileBadge)
 
     export default ConnectedProfileBadge
