@@ -14,7 +14,7 @@ class Login extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault()
-
+		this.props.setUsername(e.target.children[0].children[1].value)
 		let payload = { username: this.state.values.username, password: this.state.values.password }
 
 		axios({

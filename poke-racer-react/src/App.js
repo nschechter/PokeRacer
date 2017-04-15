@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import Login from './components/Login'
 import WebsocketListener from './components/sockets/WebsocketListener'
-import ConnectedPokemonPicker from './components/PokemonPicker'
 import { addParticipant, removeParticipant } from './actions/changeParticipants'
+import { Redirect } from 'react-router-dom'
 import { setToken } from './actions/Account'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Race from './components/Race/Race'
 import Auth from './containers/Auth'
 
 class App extends Component {
@@ -14,6 +13,7 @@ class App extends Component {
     super(props);
     this.handleNewParticipant = this.handleNewParticipant.bind(this)
     this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this)
+    this.handleRedirect = this.handleRedirect.bind(this)
   }
 
   handleNewParticipant(participant) {
@@ -34,6 +34,14 @@ class App extends Component {
     return null
   }
 
+  handleRedirect() {
+    return (
+      <Redirect
+        to='/pokemon'
+      />
+    )
+  }
+
   componentWillMount() {
     let token = localStorage.getItem("token")
     if (token)
@@ -44,10 +52,8 @@ class App extends Component {
     return (
       <div className="App">
         <h2>Welcome to PokéRaces</h2>
-        {!this.props.account.token ? <Auth /> : false}
+        {!this.props.account.token ? <Auth /> : this.handleRedirect()}
         {this.displayPokemon()}
-        <ConnectedPokemonPicker />
-        <Race />
         <WebsocketListener
           debug
           handleReceived={this.handleNewParticipant}
