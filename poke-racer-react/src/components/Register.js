@@ -14,7 +14,7 @@ class Register extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault()
-		this.props.setUsername(e.target.children[0].children[1].value)
+		localStorage.setItem('username', this.state.values.username);
 		axios.post('http://localhost:3001/v1/registrations',
 			{ account: {username: this.state.values.username, password: this.state.values.password }
 		})
