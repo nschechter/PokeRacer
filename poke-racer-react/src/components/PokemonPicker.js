@@ -67,18 +67,17 @@ class PokemonPicker extends Component {
     })
   }
 
-  componentWillMount() {
+
+  componentDidMount() {
     let pokeId = localStorage.getItem("pokeId")
     if (pokeId) {
       this.setState({
         redirect: true
       })
       this.handleRedirect()
+    } else {
+      this.getPokemon()
     }
-  }
-
-  componentDidMount() {
-    this.getPokemon()
   }
 
   getPokemon() {
