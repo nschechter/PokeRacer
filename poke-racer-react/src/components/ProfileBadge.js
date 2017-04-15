@@ -60,10 +60,10 @@ class ProfileBadge extends Component {
       };
 
       return (
-        <div>
+        <div className="col-md-1">
         {this.state.redirect ? this.handleRedirect() : null}
-        <button onClick={this.handleClick} type="button" className="btn btn-primary" data-toggle="button" aria-pressed="false" autoComplete="off">
-        <h2>View Your Profile</h2>
+        <button onClick={this.handleClick} type="button" className="btn btn-primary btn-lg submit " >
+        View Your Profile
         </button>
           <Modal
             isOpen={this.state.isModalOpen}
