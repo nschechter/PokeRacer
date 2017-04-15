@@ -28,6 +28,8 @@ class ProfileBadge extends Component {
 
     handleSubmit(e) {
       e.preventDefault()
+      localStorage.removeItem("pokeId")
+      localStorage.removeItem("pokemon")
       this.setState({
         redirect: true
       })
