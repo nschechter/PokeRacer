@@ -14,7 +14,8 @@ class Register extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault()
-		axios.post('http://localhost:3001/v1/registrations', 
+		this.props.setUsername(e.target.children[0].children[1].value)
+		axios.post('http://localhost:3001/v1/registrations',
 			{ account: {username: this.state.values.username, password: this.state.values.password }
 		})
 		.then(resp => {

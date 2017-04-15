@@ -6,7 +6,6 @@ import PokemonButton from './PokemonButton'
 import { Redirect } from 'react-router-dom'
 import Modal from 'react-modal'
 import '../index.css'
-import ReactRedirect from 'react-redirect'
 
 class PokemonPicker extends Component {
   constructor() {
@@ -60,7 +59,7 @@ class PokemonPicker extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.onSetPokemon(this.state.pokeId)
+    this.props.onSetPokemon(this.state.pokeId, this.state.pokeName)
     this.setState({
       redirect: true
     })
@@ -141,8 +140,8 @@ class PokemonPicker extends Component {
   }
 
   const mapDispatchToProps = (dispatch) => ({
-    onSetPokemon: (id) => {
-      dispatch(setPokemon(id))
+    onSetPokemon: (id, name) => {
+      dispatch(setPokemon(id, name))
     },
   })
 

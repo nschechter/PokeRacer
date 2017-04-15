@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { setToken } from '../../actions/Account'
 import { connect } from 'react-redux'
-import Race from './Race'
 import { addRace, removeRace, getActiveRaces } from '../../actions/RaceList'
+import ConnectedProfileBadge from '../ProfileBadge'
 import Modal from 'react-modal'
 import '../../index.css'
 
@@ -128,6 +128,7 @@ class RaceList extends Component {
             <input className="btn btn-primary submit-btn" type="submit" value="Submit" />
           </form>
         </Modal>
+        <ConnectedProfileBadge />
         {this.listRaces()}
       </div>
     )
