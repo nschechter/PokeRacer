@@ -24,6 +24,7 @@ class RaceList extends Component {
     this.onAddRace = this.onAddRace.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
+    this.handleAddedRaceRedirect = this.handleAddedRaceRedirect.bind(this)
     this.props.getActiveRaces()
 
   }
@@ -63,6 +64,13 @@ class RaceList extends Component {
     })
   }
 
+  handleAddedRaceRedirect() {
+    this.setState({
+      raceId: this.props.races[this.props.races.length - 1].id
+    })
+    this.handleRedirect()
+  }
+
 
   onAddRace(e) {
     e.preventDefault()
@@ -72,9 +80,10 @@ class RaceList extends Component {
     }
     this.props.addRace(race, this.props.account.token)
     this.setState({
-      raceTitle: ''
+      raceTitle: '',
+      redirect: true
     })
-    this.handleClose()
+    this.handleAddedRaceRedirect()
   }
 
   handleChange(e) {
