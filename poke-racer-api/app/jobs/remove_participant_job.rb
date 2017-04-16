@@ -3,6 +3,6 @@ class RemoveParticipantJob < ActiveJob::Base
 
  def perform(id)
    ActionCable.server.broadcast 'removeparticipant',
-   id
+   participant_id: id, race_id: id
  end
 end
