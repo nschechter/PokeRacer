@@ -19,18 +19,18 @@ class Race extends Component {
 		this.venu.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png';
 		this.pokemonB = new Pokemon(this.bulbasaur, 
 		{
-			10: 30, 20: 300, 30: 350, 40: 400, 
-			50: 500, 60: 600, 70: 610, 80: 620, 90: 900, 100: 1000
+			10: 100, 20: 220, 30: 300, 40: 400, 
+			50: 800, 60: 820, 70: 1000, 80: 1000, 90: 1000, 100: 1000
 		}, 100)
 		this.pokemonI = new Pokemon(this.ivysaur, 
 		{
-			10: 100, 20: 300, 30: 350, 40: 400, 
-			50: 500, 60: 600, 70: 610, 80: 620, 90: 920, 100: 980
+			10: 120, 20: 200, 30: 300, 40: 400, 
+			50: 500, 60: 600, 70: 720, 80: 800, 90: 920, 100: 1000
 		}, 200)
 		this.pokemonV = new Pokemon(this.venu, 
 		{
-			10: 100, 20: 200, 30: 300, 40: 400, 
-			50: 500, 60: 600, 70: 700, 80: 800, 90: 900, 100: 990
+			10: 100, 20: 200, 30: 320, 40: 400, 
+			50: 500, 60: 600, 70: 700, 80: 820, 90: 1000, 100: 1000
 		}, 300)
 		this.handleNewParticipant = this.handleNewParticipant.bind(this)
 		this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this)

@@ -17,7 +17,7 @@ ReactDOM.render(
       <div>
         <Route path="/" component={Navbar}/>
         <Switch>
-          <Route exact path="/" component={ConnectedApp}/>
+          <Route exact path="/" component={Race}/>
           <Route path="/pokemon" component={ConnectedPokemonPicker} />
           <Route path="/races/:id" component={Race} />
           <Route path="/races" component={ConnectedRaceList}/>
