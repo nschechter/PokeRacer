@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Login from './components/Login'
-import WebsocketListener from './components/sockets/WebsocketListener'
 import { addParticipant, removeParticipant } from './actions/changeParticipants'
 import { Redirect } from 'react-router-dom'
 import { setToken } from './actions/Account'
@@ -11,19 +10,10 @@ import Auth from './containers/Auth'
 class App extends Component {
   constructor(props) {
     super(props);
-    this.handleNewParticipant = this.handleNewParticipant.bind(this)
-    this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
   }
 
-  handleNewParticipant(participant) {
-    console.log(participant);
-    this.props.addParticipant(participant)
-  }
-  handleRemoveParticipant(participant) {
-    console.log(participant);
-    this.props.removeParticipant(participant)
-  }
+
 
   displayPokemon() {
     if (this.props.race) {
@@ -54,18 +44,7 @@ class App extends Component {
         <h2>Welcome to PokéRaces</h2>
         {!this.props.account.token ? <Auth /> : this.handleRedirect()}
         {this.displayPokemon()}
-        <WebsocketListener
-          debug
-          handleReceived={this.handleNewParticipant}
-          channel={'AddNewParticipantChannel'}
-          url={'ws://localhost:3001/cable'}
-        />
-        <WebsocketListener
-          debug
-          handleReceived={this.handleRemoveParticipant}
-          channel={'RemoveParticipantChannel'}
-          url={'ws://localhost:3001/cable'}
-        />
+
       </div>
     )
   }

@@ -21,6 +21,11 @@ class V1::RacesController < ApplicationController
     render json: active_races
   end
 
+  def show
+    race = Race.find(params[:id])
+    render json: race.accounts
+  end
+
   private
   def race_params
     params.require(:race).permit(:title)

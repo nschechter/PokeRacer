@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { setToken, setUsername, setPokemon } from '../../actions/Account'
 import { connect } from 'react-redux'
-import { addRace, removeRace, getActiveRaces } from '../../actions/RaceList'
+import { addRace, removeRace, getActiveRaces, getParticipants } from '../../actions/RaceList'
 import ConnectedProfileBadge from '../ProfileBadge'
 import Modal from 'react-modal'
 import '../../index.css'
@@ -51,6 +51,7 @@ class RaceList extends Component {
   }
 
   handleRedirect() {
+    this.props.getParticipants(this.state.raceId)
     return (
       <Redirect
         to={'/races/' + this.state.raceId}
@@ -103,7 +104,7 @@ class RaceList extends Component {
     let races = this.props.races
     return races.map((race) => {
       return (
-        <div key={race.id} className="col-md-10 col-md-offset-2">
+        <div key={race.id} className="col-md-12">
             <button className="race-button" key={races.indexOf(race)} id={race.id} onClick={this.handleClick}><h2>Race Name: {race.title}</h2></button>
         </div>
       )
@@ -124,10 +125,15 @@ class RaceList extends Component {
     };
 
     return (
-      <div>
+      <div className="col-md-12">
       {this.state.redirect ? this.handleRedirect() : null}
-      <h1>Join or Add A Race</h1>
-      <button onClick={this.handleAddRace}>Add Race</button>
+      <div className="col-md-12 page-title">
+        <h1>Join or Add A Race</h1>
+        <div className="col-md-11">
+        <button onClick={this.handleAddRace} className="btn btn-primary btn-lg submit">Add Race</button>
+        <ConnectedProfileBadge />
+        </div>
+      </div>
       <Modal
         isOpen={this.state.isModalOpen}
         onRequestClose={this.handleClose}
@@ -142,7 +148,6 @@ class RaceList extends Component {
             <input className="btn btn-primary submit-btn" type="submit" value="Submit" />
           </form>
         </Modal>
-        <ConnectedProfileBadge />
         {this.listRaces()}
       </div>
     )
@@ -175,6 +180,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setPokemon: (id, name) => {
     dispatch(setPokemon(id, name))
+  },
+  getParticipants: (id, name) => {
+    dispatch(getParticipants(id, name))
   }
 })
 
