@@ -45,8 +45,6 @@ class App extends Component {
       <div className="App">
         <h2>Welcome to PokéRaces</h2>
         {!this.props.account.token ? <Auth /> : false}
-        {this.displayPokemon()}
-        <ConnectedPokemonPicker />
         <Race />
         <WebsocketListener
           debug
