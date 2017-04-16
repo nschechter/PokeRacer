@@ -14,7 +14,7 @@ class Login extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault()
-
+		localStorage.setItem('username', this.state.values.username);
 		let payload = { username: this.state.values.username, password: this.state.values.password }
 
 		axios({

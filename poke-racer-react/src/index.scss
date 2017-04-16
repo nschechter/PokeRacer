@@ -1,0 +1,57 @@
+@import 'palette';
+
+.pokebutton {
+  height: 200px;
+  width: 200px;
+  margin-right: 0;
+}
+
+.list-title {
+  text-align: center;
+}
+
+.centered {
+  text-align: center;
+}
+
+.race-button {
+  height: 100px;
+  width: inherit;
+  margin-right: 0;
+  border-radius: 8px;
+  background: $color2;
+  color: $color3;
+  border-color: $color1;
+  box-shadow:none;
+}
+
+
+.race-button:hover {
+  background: $color4;
+}
+
+.submit {
+  background: $color2;
+  color: $color3;
+  border-color: $color1;
+  box-shadow:none;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.submit:hover {
+  background: $color4;
+}
+
+.navbar {
+  height: 100px;
+  background: $color2;
+  text-align: center;
+  color: $color1;
+}
+
+.page-title {
+  text-align: center;
+  color: $color2;
+  margin-bottom: 50px;
+}

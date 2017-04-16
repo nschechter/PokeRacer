@@ -1,19 +1,46 @@
+/* RGB */
 .pokebutton {
   height: 200px;
   width: 200px;
-  margin-right: 0;
-}
+  margin-right: 0; }
 
 .list-title {
-  text-align: center;
-}
+  text-align: center; }
 
 .centered {
-  text-align: center;
-}
+  text-align: center; }
 
 .race-button {
   height: 100px;
-  width: 800px;
+  width: inherit;
   margin-right: 0;
-}
+  border-radius: 8px;
+  background: #58585b;
+  color: white;
+  border-color: #f04037;
+  box-shadow: none; }
+
+.race-button:hover {
+  background: black; }
+
+.submit {
+  background: #58585b;
+  color: white;
+  border-color: #f04037;
+  box-shadow: none;
+  border-radius: 8px;
+  text-align: center; }
+
+.submit:hover {
+  background: black; }
+
+.navbar {
+  height: 100px;
+  background: #58585b;
+  text-align: center;
+  color: #f04037; }
+
+.page-title {
+  text-align: center;
+  color: #58585b;
+  margin-bottom: 50px; }

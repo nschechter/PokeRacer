@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import { setToken } from '../../actions/Account'
+import { setToken, setUsername, setPokemon } from '../../actions/Account'
 import { connect } from 'react-redux'
-import Race from './Race'
 import { addRace, removeRace, getActiveRaces } from '../../actions/RaceList'
+import ConnectedProfileBadge from '../ProfileBadge'
 import Modal from 'react-modal'
 import '../../index.css'
 
@@ -24,14 +24,20 @@ class RaceList extends Component {
     this.onAddRace = this.onAddRace.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
+    this.handleAddedRaceRedirect = this.handleAddedRaceRedirect.bind(this)
     this.props.getActiveRaces()
 
   }
 
   componentWillMount() {
     if (!this.props.account.token) {
-    let token = localStorage.getItem("token")
+      let token = localStorage.getItem("token")
+      let username = localStorage.getItem("username")
+      let id = localStorage.getItem("pokeId")
+      let name = localStorage.getItem("pokemon")
     if (token) {
+      this.props.onSetUsername(username)
+      this.props.setPokemon(id, name)
       this.props.setToken(token)
       }
     }
@@ -58,6 +64,13 @@ class RaceList extends Component {
     })
   }
 
+  handleAddedRaceRedirect() {
+    this.setState({
+      raceId: this.props.races[this.props.races.length - 1].id
+    })
+    this.handleRedirect()
+  }
+
 
   onAddRace(e) {
     e.preventDefault()
@@ -67,9 +80,10 @@ class RaceList extends Component {
     }
     this.props.addRace(race, this.props.account.token)
     this.setState({
-      raceTitle: ''
+      raceTitle: '',
+      redirect: true
     })
-    this.handleClose()
+    this.handleAddedRaceRedirect()
   }
 
   handleChange(e) {
@@ -89,7 +103,7 @@ class RaceList extends Component {
     let races = this.props.races
     return races.map((race) => {
       return (
-        <div key={race.id} className="col-md-10 col-md-offset-2">
+        <div key={race.id} className="col-md-12">
             <button className="race-button" key={races.indexOf(race)} id={race.id} onClick={this.handleClick}><h2>Race Name: {race.title}</h2></button>
         </div>
       )
@@ -110,10 +124,15 @@ class RaceList extends Component {
     };
 
     return (
-      <div>
+      <div className="col-md-12">
       {this.state.redirect ? this.handleRedirect() : null}
-      <h1>Join or Add A Race</h1>
-      <button onClick={this.handleAddRace}>Add Race</button>
+      <div className="col-md-12 page-title">
+        <h1>Join or Add A Race</h1>
+        <div className="col-md-11">
+        <button onClick={this.handleAddRace} className="btn btn-primary btn-lg submit">Add Race</button>
+        <ConnectedProfileBadge />
+        </div>
+      </div>
       <Modal
         isOpen={this.state.isModalOpen}
         onRequestClose={this.handleClose}
@@ -154,6 +173,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setToken: (token) => {
     dispatch(setToken(token))
+  },
+  onSetUsername: (username) => {
+    dispatch(setUsername(username))
+  },
+  setPokemon: (id, name) => {
+    dispatch(setPokemon(id, name))
   }
 })
 

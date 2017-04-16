@@ -7,6 +7,7 @@ import Race from './components/Race/Race'
 import { store } from './store.js'
 import { BrowserRouter as Router, Route, browserHistory, Switch } from 'react-router-dom'
 import ConnectedRaceList from './components/Race/RaceList'
+import ConnectedPokemonPicker from './components/PokemonPicker'
 import Navbar from './components/Navbar'
 
 
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Route path="/" component={Navbar}/>
         <Switch>
           <Route exact path="/" component={ConnectedApp}/>
+          <Route path="/pokemon" component={ConnectedPokemonPicker} />
           <Route path="/races/:id" component={Race} />
           <Route path="/races" component={ConnectedRaceList}/>
           <Route component={NotFound} />
