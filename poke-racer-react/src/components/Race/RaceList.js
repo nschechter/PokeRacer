@@ -15,7 +15,8 @@ class RaceList extends Component {
       isModalOpen: false,
       raceTitle: '',
       raceId: '',
-      redirect: false
+      redirect: false,
+      currentFilter: ''
     }
     this.listRaces = this.listRaces.bind(this)
     this.handleAddRace = this.handleAddRace.bind(this)
@@ -25,6 +26,7 @@ class RaceList extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
     this.handleAddedRaceRedirect = this.handleAddedRaceRedirect.bind(this)
+    this.handleFilterChange = this.handleFilterChange.bind(this)
     this.props.getActiveRaces()
 
   }
@@ -58,6 +60,13 @@ class RaceList extends Component {
       />
     )
   }
+
+  handleFilterChange(e) {
+    this.setState({
+      currentFilter: e.target.value
+    })
+  }
+
 
   handleClose() {
     this.setState({
@@ -101,8 +110,15 @@ class RaceList extends Component {
   }
 
   listRaces() {
+    let filteredList
     let races = this.props.races
-    return races.map((race) => {
+    if (this.state.currentFilter === '') {
+      filteredList = races
+    } else {
+      let matchExp = new RegExp(this.state.currentFilter, 'gi')
+      filteredList = races.filter((race) => race.title.match(matchExp) !== null )
+    }
+    return filteredList.map((race) => {
       return (
         <div key={race.id} className="col-md-12">
             <button className="race-button" key={races.indexOf(race)} id={race.id} onClick={this.handleClick}><h2>Race Name: {race.title}</h2></button>
@@ -132,6 +148,10 @@ class RaceList extends Component {
         <div className="col-md-11">
         <button onClick={this.handleAddRace} className="btn btn-primary btn-lg submit">Add Race</button>
         <ConnectedProfileBadge />
+        <div className="col-md-2 col-md-offset-10">
+          <h4>Search For A Race</h4>
+          <input type="text" onChange={this.handleFilterChange} />
+        </div>
         </div>
       </div>
       <Modal
