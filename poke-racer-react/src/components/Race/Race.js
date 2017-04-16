@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import WebsocketListener from '../sockets/WebsocketListener'
 import Canvas from 'react-canvas-component'
 
 class Race extends Component {
@@ -9,7 +10,8 @@ class Race extends Component {
 			height: 1000,
 			finishLineXCoord: 1000
 		}
-
+		this.handleNewParticipant = this.handleNewParticipant.bind(this)
+		this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this)
 		this.drawCanvas = this.drawCanvas.bind(this)
 		this.raceImage = this.raceImage.bind(this)
 		this.myImage = new Image(0, 0);
@@ -40,6 +42,15 @@ class Race extends Component {
 	    this.raceImage(ctx, time, this.myImage, 100)
 	}
 
+	handleNewParticipant(participant) {
+		console.log(participant);
+		this.props.addParticipant(participant)
+	}
+	handleRemoveParticipant(participant) {
+		console.log(participant);
+		this.props.removeParticipant(participant)
+	}
+
 	render() {
 		const divStyle = {
   			backgroundcolor: 'blue'
@@ -47,6 +58,18 @@ class Race extends Component {
 		return (
 			<div className="race">
 				<Canvas draw={this.drawCanvas} width={this.state.width} height={this.state.height} />
+				<WebsocketListener
+					debug
+					handleReceived={this.handleNewParticipant}
+					channel={'AddNewParticipantChannel'}
+					url={'ws://localhost:3001/cable'}
+				/>
+				<WebsocketListener
+					debug
+					handleReceived={this.handleRemoveParticipant}
+					channel={'RemoveParticipantChannel'}
+					url={'ws://localhost:3001/cable'}
+				/>
 			</div>
 		)
 	}

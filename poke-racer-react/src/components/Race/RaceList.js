@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { setToken, setUsername, setPokemon } from '../../actions/Account'
 import { connect } from 'react-redux'
-import { addRace, removeRace, getActiveRaces } from '../../actions/RaceList'
+import { addRace, removeRace, getActiveRaces, getParticipants } from '../../actions/RaceList'
 import ConnectedProfileBadge from '../ProfileBadge'
 import Modal from 'react-modal'
 import '../../index.css'
@@ -51,6 +51,7 @@ class RaceList extends Component {
   }
 
   handleRedirect() {
+    this.props.getParticipants(this.state.raceId)
     return (
       <Redirect
         to={'/races/' + this.state.raceId}
@@ -179,6 +180,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setPokemon: (id, name) => {
     dispatch(setPokemon(id, name))
+  },
+  getParticipants: (id, name) => {
+    dispatch(getParticipants(id, name))
   }
 })
 
