@@ -12,3 +12,4 @@ Account.destroy_all
 Pokemon.destroy_all
 account = Account.new(username: "Ian", password_digest: "test")
 account.save
+

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     post '/registrations', to: 'registrations#create'
     get '/pokemon', to: 'pokemon#index'
     get '/races/active', to: 'races#active'
+    get '/races/:id/results', to: 'races#gen_race'
     resources :races, only: [:create, :destroy, :show]
     resources :sessions, only: [:create, :destroy]
   end

@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 import WebsocketListener from '../sockets/WebsocketListener'
 import Canvas from 'react-canvas-component'
 import Pokemon from './Pokemon'
+import { fetchResults } from '../../actions/Race'
+import { connect } from 'react-redux'
 
 class Race extends Component {
 	constructor() {
@@ -19,7 +22,7 @@ class Race extends Component {
 		this.venu.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png';
 		this.pokemonB = new Pokemon(this.bulbasaur, 
 		{
-			10: 100, 20: 220, 30: 300, 40: 400, 
+			10: 100, 20: 220, 30: 300, 40: 400,
 			50: 800, 60: 820, 70: 1000, 80: 1000, 90: 1000, 100: 1000
 		}, 100)
 		this.pokemonI = new Pokemon(this.ivysaur, 
@@ -36,14 +39,32 @@ class Race extends Component {
 		this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this)
 		this.drawCanvas = this.drawCanvas.bind(this)
 		this.startRace = this.startRace.bind(this)
+		this.fetchResults = this.fetchResults.bind(this)
+		this.stop = null
+	}
+
+	fetchResults(event) {
+		event.preventDefault()
+		this.props.fetchResults(parseInt(this.props.match.params.id, 10))
 	}
 
 	startRace(ctx, time, pokemonList) {
 		let currentPercentile = 10
-		let stop = setInterval(() => {
+		this.stop = setInterval(() => {
 			ctx.clearRect(0, 0, 1500, 1500)
 			Pokemon.drawAll(ctx, time)
 		}, 10)
+	}
+
+	componentDidMount() {
+		let canvas = ReactDOM.findDOMNode(this.refs.pokecanvas)
+		let ctx = canvas.getContext('2d')
+		this.startRace(ctx, [this.pokemonB, this.pokemonI, this.pokemonV])
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.stop)
+		Pokemon.resetPokemon()
 	}
 
 	drawCanvas({ctx, time}) {
@@ -55,6 +76,7 @@ class Race extends Component {
 		console.log(participant);
 		this.props.addParticipant(participant)
 	}
+
 	handleRemoveParticipant(participant) {
 		console.log(participant);
 		this.props.removeParticipant(participant)
@@ -63,7 +85,8 @@ class Race extends Component {
 	render() {
 		return (
 			<div className="race">
-				<Canvas draw={this.drawCanvas} width={this.state.width} height={this.state.height} />
+				<button onClick={this.fetchResults}>Fetch bro</button>
+				<canvas ref="pokecanvas" width={this.state.width} height={this.state.height} />
 				<WebsocketListener
 					debug
 					handleReceived={this.handleNewParticipant}
@@ -81,4 +104,13 @@ class Race extends Component {
 	}
 }
 
-export default Race
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchResults: (raceId) => {
+    dispatch(fetchResults(raceId))
+  }
+})
+
+const ConnectedRace = connect(null, mapDispatchToProps)(Race)
+
+export default ConnectedRace

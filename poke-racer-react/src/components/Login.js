@@ -24,7 +24,7 @@ class Login extends Component {
 		})
 		.then(resp => {
 			this.props.setToken(resp.data.token)
-			localStorage.setItem('token', resp.data.token);
+			localStorage.setItem('token', resp.data.token)
 		})
 	}
 

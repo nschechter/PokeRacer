@@ -16,6 +16,11 @@ class V1::RacesController < ApplicationController
 
   end
 
+  def gen_race
+    race = Race.find(params[:id])
+    render json: {results: race.gen_race}
+  end
+
   def active
     active_races = Race.where(is_active: true)
     render json: active_races

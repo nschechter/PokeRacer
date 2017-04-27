@@ -31,11 +31,23 @@ class Pokemon {
 			return currentPercentile + 10
 	}
 
-	static updatePaceForPokemon(currentPercentile) {
+	static resetPokemon() {
 		for (let i = 0; i < Pokemon.getAll().length; i++) {
-			let temp = Pokemon.all[i]
-			temp.pace = (temp.getXCoordAtPercentile(currentPercentile) - temp.getXCoordAtPercentile(currentPercentile - 10)) / currentPercentile
+			let tempPokemon = Pokemon.all[i]
+			tempPokemon.pace = 1
+			tempPokemon.xCoord = 0
+			tempPokemon.currentPercentile = 10
 		}
+		Pokemon.all = []
+	}
+
+	static isRaceDone() {
+		let done = true
+		for (let i = 0; i < Pokemon.getAll().length; i++)
+			if (Pokemon.all[i].getNextPercentile(Pokemon.all[i].currentPercentile) != null)
+				done = false
+
+		return done
 	}
 
 	static drawAll(ctx, time) {
