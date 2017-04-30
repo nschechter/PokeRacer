@@ -6,8 +6,11 @@ export const fetchResults = (raceId) => {
       method: 'GET',
       url: `http://localhost:3001/v1/races/${raceId}/results`,
     }).then(resp => {
-      // dispatch({type: 'ADD_RACE', payload: resp.data})
-      debugger
+      dispatch({type: 'SET_RESULTS', payload: resp.data.results})
     })
   }
 }
+
+export const resetResults = () => ({
+	type: 'RESET_RESULTS'
+})

@@ -2,11 +2,11 @@ import { combineReducers } from 'redux'
 import Account from './Account'
 import RaceList from './RaceList'
 import Race from './Race'
-import Results from './Results'
+import RaceResults from './RaceResults'
 
 export default combineReducers({
   Account,
   Race,
-  Results,
+  RaceResults,
   RaceList
 })

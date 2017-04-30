@@ -17,28 +17,30 @@ class Race < ApplicationRecord
 			result = {}
 			if participant == winner
 				result["image"] = participant.pokemon.img_url
-				result["10"] = rand(0..100)
-				result["20"] = rand(result['10']..200)
-				result["30"] = rand(result['20']..300)
-				result["40"] = rand(result['30']..400)
-				result["50"] = rand(result['40']..500)
-				result["60"] = rand(result['50']..600)
-				result["70"] = rand(result['60']..1100)
-				result["80"] = rand(result['70']..1100)
-				result["90"] = rand(result['80']..1100)
-				result["100"] = 1000
+				result["race"] = {}
+				result["race"]["10"] = rand(0..100)
+				result["race"]["20"] = rand(result['race']['10']..200)
+				result["race"]["30"] = rand(result['race']['20']..300)
+				result["race"]["40"] = rand(result['race']['30']..400)
+				result["race"]["50"] = rand(result['race']['40']..500)
+				result["race"]["60"] = rand(result['race']['50']..600)
+				result["race"]["70"] = rand(result['race']['60']..1100)
+				result["race"]["80"] = rand(result['race']['70']..1100)
+				result["race"]["90"] = rand(result['race']['80']..1100)
+				result["race"]["100"] = 1000
 			else
+				result["race"] = {}
 				result["image"] = participant.pokemon.img_url
-				result["10"] = rand(0..100)
-				result["20"] = rand(result['10']..200)
-				result["30"] = rand(result['20']..300)
-				result["40"] = rand(result['30']..400)
-				result["50"] = rand(result['40']..500)
-				result["60"] = rand(result['50']..600)
-				result["70"] = rand(result['60']..700)
-				result["80"] = rand(result['70']..800)
-				result["90"] = rand(result['80']..900)
-				result["100"] = 1000
+				result["race"]["10"] = rand(0..100)
+				result["race"]["20"] = rand(result['race']['10']..200)
+				result["race"]["30"] = rand(result['race']['20']..300)
+				result["race"]["40"] = rand(result['race']['30']..400)
+				result["race"]["50"] = rand(result['race']['40']..500)
+				result["race"]["60"] = rand(result['race']['50']..600)
+				result["race"]["70"] = rand(result['race']['60']..700)
+				result["race"]["80"] = rand(result['race']['70']..800)
+				result["race"]["90"] = rand(result['race']['80']..900)
+				result["race"]["100"] = 1000
 			end
 			result
 		end
